@@ -19,7 +19,9 @@ int main(int argc, char* argv[]) {
 	
 	connect(sock, (struct sockaddr *)&server, sizeof(struct sockaddr));
 	printf("Connected\n");
-	write(sock, argv[1], sizeof(argv[1]));
+	int siz = strlen(argv[1]);
+	write(sock, (char *)&siz,sizeof(int));
+	write(sock, argv[1], strlen(argv[1])*sizeof(char));
 	FILE *f;
 	char *fName = strcat("new_",argv[1]);
 	f = fopen(fName, "w");

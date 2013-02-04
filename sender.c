@@ -18,12 +18,15 @@ int main(int argc, char* argv[]) {
 	int len = sizeof(struct sockaddr);
 	int conn = accept(sock, (struct sockaddr *)&client, &len);
 	printf("Connection accepted\n");
-	read(conn, (char*)&line, sizeof(line));
+	int size;
+	read(conn, (char*)&size, sizeof(int));
+	read(conn, (char*)&line, (size-1)*sizeof(char));
+	line[size]='\0';
 	printf("%s\n", line);
 	FILE *f = fopen(line, "r");
 	
 	while(fgets(line, 90, f)) {
-		write(conn, &line, sizeof(line));
+		write(conn, &line, 100*sizeof(char));
 	}
 	
 	fclose(f);
