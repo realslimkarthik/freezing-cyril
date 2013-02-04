@@ -1,5 +1,3 @@
-#sh config.sh
-
 echo "##################################################################"
 banner Freezing
 banner Cyril
@@ -18,5 +16,3 @@ while true; do
 		read dirName
 	fi
 done
-
-echo $dirName
