@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 	printf("Connection accepted\n");
 	int size;
 	read(conn, (char*)&size, sizeof(int));
-	read(conn, (char*)&line, (size-1)*sizeof(char));
+	read(conn, (char*)&line, (size)*sizeof(char));
 	line[size]='\0';
 	printf("%s\n", line);
 	FILE *f = fopen(line, "r");
