@@ -23,14 +23,17 @@ int main(int argc, char* argv[]) {
 	write(sock, (char *)&siz,sizeof(int));
 	write(sock, argv[1], strlen(argv[1])*sizeof(char));
 	FILE *f;
-	char *fName = strcat("new_",argv[1]);
+
+	char fName[100];
+	strcpy(fName,argv[1]);
+	strcat(fName,"_new");
 	f = fopen(fName, "w");
 	//f = fopen("abc.html", "w");
 	char line[100];
 	int test = 1;
 	
 	while(test) {
-		test = read(sock, (char *)&line, sizeof(line));
+		test = read(sock, (char *)&line, 100*sizeof(char));
 		printf("%s\n", line);
 		fprintf(f, "%s", line);
 	}

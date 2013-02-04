@@ -4,6 +4,7 @@
 #include<sys/types.h>
 #include<unistd.h>
 #include<netinet/in.h>
+#include<string.h>
 
 int main(int argc, char* argv[]) {
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -24,9 +25,10 @@ int main(int argc, char* argv[]) {
 	line[size]='\0';
 	printf("%s\n", line);
 	FILE *f = fopen(line, "r");
-	
+	memset(line,0,100*sizeof(char));
 	while(fgets(line, 90, f)) {
-		write(conn, &line, 100*sizeof(char));
+		write(conn, line, 100*sizeof(char));
+		memset(line,0,100*sizeof(char));
 	}
 	
 	fclose(f);
