@@ -28,14 +28,14 @@ int main(int argc, char* argv[]) {
 	strcpy(fName,argv[1]);
 	strcat(fName,"_new");
 	f = fopen(fName, "w");
-	//f = fopen("abc.html", "w");
 	char line[100];
 	int test = 1;
 	
-	while(test) {
+	while(test!=0) {
 		test = read(sock, (char *)&line, 100*sizeof(char));
-		printf("%s\n", line);
 		fprintf(f, "%s", line);
+		printf("%s", line);
+		memset(line, 0, 100*sizeof(char));
 	}
 	fclose(f);
 	close(sock);
