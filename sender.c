@@ -5,9 +5,11 @@
 #include<unistd.h>
 #include<netinet/in.h>
 #include<string.h>
+#include<arpa/inet.h>
 
 int main(int argc, char* argv[]) {
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
+	struct hostent *hp;
 	char line[100];
 	struct sockaddr_in client, server;
 	server.sin_family = AF_INET;
@@ -17,8 +19,12 @@ int main(int argc, char* argv[]) {
 	listen(sock, 0);
 	printf("listening\n");
 	int len = sizeof(struct sockaddr);
+	while(1) {
 	int conn = accept(sock, (struct sockaddr *)&client, &len);
 	printf("Connection accepted\n");
+	printf("Request received from: ");
+	hp = gethostbyaddr((char*)&client, sizeof(client), AF_INET);
+	printf("%s\n", hp->h_name);
 	int size;
 	read(conn, (char*)&size, sizeof(int));
 	read(conn, (char*)&line, (size)*sizeof(char));
@@ -33,6 +39,7 @@ int main(int argc, char* argv[]) {
 	
 	fclose(f);
 	close(conn);
+	}
 	close(sock);
 	return 0;
 }
