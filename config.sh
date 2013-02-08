@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Please provide your password if and when prompted"
 $PKGs = $(dpkg-query -W --showformat='${Status}\n' sysvbanner|grep "install ok installed")
 
