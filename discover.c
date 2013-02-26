@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include<arpa/inet.h>
 #include<netinet/in.h>
 #include<sys/types.h>
@@ -10,7 +11,7 @@
 
 int appsock;
 
-struct bnamme
+struct bname
 {
 	char cname[100];
 };
@@ -45,7 +46,7 @@ int startlisten()
 	int i = 0;
 	while(i<10)
 	{
-	recvfrom(appsock,(char *)&rdata,sizeof(rdata),0,(struct sockaddr*) &client, &clientLength);
+	recvfrom(appsock,(char *)&rdata,sizeof(struct bname),0,(struct sockaddr*) &client, &clientLength);
 	printf("%s connected",rdata.cname);
 	i++;
 	}
@@ -57,7 +58,7 @@ int main(int argc,char** argv)
 	struct sockaddr_in comp;
 	comp.sin_family = AF_INET;
 	comp.sin_port = htons(COMPORT);
-	comp.sin_addr = INADDR_ANY;
+	comp.sin_addr.s_addr = htonl(INADDR_ANY);
 	appsock = socket(AF_INET,SOCK_DGRAM,0);
 	if(bind(appsock,(struct sockaddr *)&comp,sizeof(struct sockaddr) == -1))
 	{
