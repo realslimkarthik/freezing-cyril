@@ -29,7 +29,7 @@ int broadcast_cname(char* computername)
 	res = sendto(appsock,(char *)&new,sizeof(new),0,(struct sockaddr *)&broad,sizeof(struct sockaddr));
 	if(res < 0)
 	{
-		printf("sendto failed\n");
+		printf("\nsendto failed\n");
 		return -1;
 	}
 	else
@@ -47,7 +47,7 @@ int startlisten()
 	while(i<10)
 	{
 	recvfrom(appsock,(char *)&rdata,sizeof(struct bname),0,(struct sockaddr*) &client, &clientLength);
-	printf("%s connected\n",rdata.cname);
+	printf("\n%s connected\n",rdata.cname);
 	i++;
 	}
 }
