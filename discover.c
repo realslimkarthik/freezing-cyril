@@ -40,10 +40,12 @@ int broadcast_cname(char* computername)
 int startlisten()
 {
 	struct bname rdata;
+	struct sockaddr_in client;
+	int clientLength;
 	int i = 0;
 	while(i<10)
 	{
-	recv(appsock,(char *)&rdata,sizeof(rdata));
+	recvfrom(appsock,(char *)&rdata,sizeof(rdata),0,(struct sockaddr*) &client, &clientLength);
 	printf("%s connected",rdata.cname);
 	i++;
 	}
