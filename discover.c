@@ -29,7 +29,7 @@ int broadcast_cname(char* computername)
 	res = sendto(appsock,(char *)&new,sizeof(new),0,(struct sockaddr *)&broad,sizeof(struct sockaddr));
 	if(res < 0)
 	{
-		printf("sendto failed");
+		printf("sendto failed\n");
 		return -1;
 	}
 	else
@@ -47,7 +47,7 @@ int startlisten()
 	while(i<10)
 	{
 	recvfrom(appsock,(char *)&rdata,sizeof(struct bname),0,(struct sockaddr*) &client, &clientLength);
-	printf("%s connected",rdata.cname);
+	printf("%s connected\n",rdata.cname);
 	i++;
 	}
 }
@@ -62,7 +62,7 @@ int main(int argc,char** argv)
 	appsock = socket(AF_INET,SOCK_DGRAM,0);
 	if(bind(appsock,(struct sockaddr *)&comp,sizeof(struct sockaddr)) == -1)
 	{
-		printf("Bind Failed");
+		printf("Bind Failed\n");
 	}
 	else
 	{
