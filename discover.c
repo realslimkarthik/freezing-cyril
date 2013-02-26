@@ -7,7 +7,8 @@
 #include<math.h>
 #include<sys/socket.h>
 
-#define COMPORT 8000
+#define SENDPORT 8000
+#define RECVPORT 8001
 
 int appsock;
 
@@ -22,7 +23,7 @@ int broadcast_cname(char* computername)
 	struct sockaddr_in broad;
 	int res;
 	broad.sin_family = AF_INET;
-	broad.sin_port = htons(COMPORT);
+	broad.sin_port = htons(SENDPORT);
 	broad.sin_addr.s_addr = htonl(INADDR_BROADCAST);
 	
 	strcpy(new.cname,computername);
@@ -57,7 +58,7 @@ int main(int argc,char** argv)
 	char* computername = argv[1];
 	struct sockaddr_in comp;
 	comp.sin_family = AF_INET;
-	comp.sin_port = htons(COMPORT);
+	comp.sin_port = htons(RECVPORT);
 	comp.sin_addr.s_addr = htonl(INADDR_ANY);
 	appsock = socket(AF_INET,SOCK_DGRAM,0);
 	int broadcastEnable=1;
