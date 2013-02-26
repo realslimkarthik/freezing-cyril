@@ -60,6 +60,8 @@ int main(int argc,char** argv)
 	comp.sin_port = htons(COMPORT);
 	comp.sin_addr.s_addr = htonl(INADDR_ANY);
 	appsock = socket(AF_INET,SOCK_DGRAM,0);
+	int broadcastEnable=1;
+	int ret=setsockopt(appsock, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable));
 	if(bind(appsock,(struct sockaddr *)&comp,sizeof(struct sockaddr)) == -1)
 	{
 		printf("Bind Failed\n");
