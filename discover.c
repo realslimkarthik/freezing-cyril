@@ -23,7 +23,7 @@ int broadcast_cname(char* computername)
 	int res;
 	broad.sin_family = AF_INET;
 	broad.sin_port = htons(COMPORT);
-	inet_aton("255.255.255.255",&broad.sin_addr);
+	broad.sin_addr.s_addr = htonl(INADDR_BROADCAST);
 	
 	strcpy(new.cname,computername);
 	res = sendto(appsock,(char *)&new,sizeof(new),0,(struct sockaddr *)&broad,sizeof(struct sockaddr));
